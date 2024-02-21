@@ -1,0 +1,50 @@
+C51 COMPILER V9.59.0.0   LED03                                                             02/08/2024 02:26:53 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LED03
+OBJECT MODULE PLACED IN .\Objects\LED03.obj
+COMPILER INVOKED BY: E:\PcbDesign\Keil_v5\C51\BIN\C51.EXE LED03.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Li
+                    -stings\LED03.lst) TABS(2) OBJECT(.\Objects\LED03.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          sbit ADDR0 = P1^0;
+   3          sbit ADDR1 = P1^1;
+   4          sbit ADDR2 = P1^2;
+   5          sbit ADDR3 = P1^3;
+   6          sbit ENLED = P1^4;
+   7          void main() 
+   8          {
+   9   1        unsigned int i = 0;   //定义循环变量 i，用于软件延时
+  10   1        unsigned char cnt = 0; //定义计数变量 cnt，用于移位控制 
+  11   1        ENLED = 0;
+  12   1        ADDR3 = 1;
+  13   1        ADDR2 = 1;
+  14   1        ADDR1 = 1;
+  15   1        ADDR0 = 0;
+  16   1        while (1) //主循环，程序无限循环执行该循环体语句 
+  17   1        {
+  18   2          P0 = ~(0x01 << cnt);    //P0 等于 1 左移 cnt 位，控制 8 个 LED 
+  19   2          for (i=0; i<20000; i++); //软件延时
+  20   2          cnt++;            //移位计数变量自加 1
+  21   2          if (cnt >= 8)       //移位计数超过 7 后，再重新从 0 开始 
+  22   2          {
+  23   3            cnt = 0; 
+  24   3          }
+  25   2        }
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     57    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
